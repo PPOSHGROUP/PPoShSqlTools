@@ -1,17 +1,17 @@
 function Invoke-Sql {
     <# 
     .SYNOPSIS 
-    Runs a T-SQL script using .NET classes (default, no prerequisites needed) or sqlcmd.exe. 
+        Runs a T-SQL script using .NET classes (default, no prerequisites needed) or sqlcmd.exe. 
     
     .DESCRIPTION 
-    Runs sql command or sql script file 
+        Runs sql command or sql script file .
 
     .OUTPUTS
-    String if Mode = sqlcmd.
-    System.Data.DataSet if Mode = .net.
+        String if Mode = sqlcmd.
+        System.Data.DataSet if Mode = .net.
 
     .EXAMPLE
-    Invoke-Sql -ConnectionString $connectionString -Sql $Query-TimeoutInSeconds -SqlCmdVariables $param
+        Invoke-Sql -ConnectionString $connectionString -Sql $Query-TimeoutInSeconds -SqlCmdVariables $param
     #> 
 
     [CmdletBinding()] 
@@ -66,7 +66,7 @@ function Invoke-Sql {
         [Data.SqlClient.SqlParameter[]] 
         $SqlParameters,
 
-        # Credential to impersonate in Integrated Security mode.
+        # Credential to impersonate in Integrated Security mode (NOTE: currently it works only when $Mode = 'sqlcmd').
         [Parameter(Mandatory=$false)]
         [PSCredential] 
         $Credential,

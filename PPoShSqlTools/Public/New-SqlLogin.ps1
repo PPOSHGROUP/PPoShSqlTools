@@ -14,6 +14,7 @@ function New-SqlLogin {
         [string]
         $ConnectionString,
         
+        # Credentials of the login to add (username + optional password).
         [Parameter(Mandatory=$true)]
         [PSCredential]
         $Credentials,

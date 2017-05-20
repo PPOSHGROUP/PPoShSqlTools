@@ -1,10 +1,10 @@
 function New-SqlUser {
     <# 
     .SYNOPSIS 
-    Creates or updates user on given database. It also remaps user to the login.
+        Creates or updates user on given database. It also remaps user to the login.
 
     .EXAMPLE
-    New-SqlUser -ConnectionString $connectionString -DatabaseName "database" -Username "username" -DbRole "db_owner|db_datareader"
+        New-SqlUser -ConnectionString $connectionString -DatabaseName "database" -Username "username" -DbRole "db_owner|db_datareader"
     #> 
     
     [CmdletBinding()]
