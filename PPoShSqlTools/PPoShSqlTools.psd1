@@ -51,7 +51,7 @@ PowerShellVersion = '3.0'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'PPoShTools'; ModuleVersion = '0.1.4'; })
+RequiredModules = @(@{ModuleName = 'PPoShTools'; ModuleVersion = '0.1.10'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
