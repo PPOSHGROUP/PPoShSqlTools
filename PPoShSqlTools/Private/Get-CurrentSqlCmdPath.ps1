@@ -18,16 +18,15 @@ function Get-CurrentSqlCmdPath {
     foreach ($version in $sqlServerVersions) {
         $regKey = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$version\Tools\ClientSetup"
         if (Test-Path -LiteralPath $regKey) {
-            $path = (Get-ItemProperty -Path $regKey).Path
-            if ($path) {
-                $path = Join-Path -Path $path -ChildPath 'sqlcmd.exe'
+            $regProperties = (Get-ItemProperty -Path $regKey)
+            if ($regProperties.Path) {
+                $path = Join-Path -Path $regProperties.Path -ChildPath 'sqlcmd.exe'
                 if (Test-Path -LiteralPath $path) {
                     return $path
                 }
             }
-            $path = (Get-ItemProperty -Path $regKey).ODBCToolsPath
-            if ($path) {
-                $path = Join-Path -Path $path -ChildPath 'sqlcmd.exe'
+            if ($regProperties.ODBCToolsPath) {
+                $path = Join-Path -Path $regProperties.ODBCToolsPath -ChildPath 'sqlcmd.exe'
                 if (Test-Path -LiteralPath $path) {
                     return $path
                 }
