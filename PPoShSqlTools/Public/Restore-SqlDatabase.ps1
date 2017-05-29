@@ -50,9 +50,16 @@ function Restore-SqlDatabase {
 
         if ($RemoteShareCredential) {
             $shareDir = Split-Path -Path $Path -Parent
-            #TODO: disconnect-share by prefix
-            Connect-Share -Path $shareDir -Credential $RemoteShareCredential
-            $tempDir = New-TempDirectory
+            $username = $RemoteShareCredential.UserName
+            $password = $RemoteShareCredential.GetNetworkCredential().Password
+            Write-Log -Info "Connecting to $Path using username $username."
+            & net use $shareDir $password /user:$username
+            $tempDir = Join-Path -Path $env:TEMP -ChildPath 'PPoshSqlToolsTemp'
+            if (Test-Path -LiteralPath $tempDir) {
+              Write-Log -Info "Deleting temp directory '$tempDir'."
+              [void](Remove-Item -LiteralPath $tempDir -Force -Recurse)
+            }
+            [void](New-Item -Path $tempDir -ItemType Directory -Force)
             Write-Log -Info "Copying '$Path' to '$tempDir'"
             Copy-Item -Path $Path -Destination $tempDir -Force
             #TODO: unhardcode this user
@@ -66,7 +73,7 @@ function Restore-SqlDatabase {
         [void](Invoke-Sql -ConnectionString $ConnectionString -InputFile $sqlScript -SqlCmdVariables $parameters -QueryTimeoutInSeconds $QueryTimeoutInSeconds -DatabaseName '')
     } finally {
         if ($RemoteShareCredential) {
-            Disconnect-Share -Path $shareDir
+            & net use $shareDir /DELETE           
             Remove-TempDirectory
         }
     }
