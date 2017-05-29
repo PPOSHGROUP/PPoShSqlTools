@@ -1,4 +1,4 @@
-function Backup-SqlDatabase {
+function Start-BackupSqlDatabase {
     <#
     .SYNOPSIS
         Creates SQL database backup.

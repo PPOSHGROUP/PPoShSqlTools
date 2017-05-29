@@ -1,4 +1,4 @@
-function Restore-SqlDatabase {
+function Start-RestoreSqlDatabase {
     <# 
     .SYNOPSIS 
         Restores database on MSSQL Server.
