@@ -4,10 +4,10 @@ function Restore-SqlDatabase {
         Restores database on MSSQL Server.
 
     .DESCRIPTION 
-    Uses Restore-SqlDatabase.sql sql script to restore database.    
+        Uses Start-RestoreSqlDatabase.sql sql script to restore database.    
 
     .EXAMPLE
-        Restore-SqlDatabase -DatabaseName "DbName" -ConnectionString "data source=localhost;integrated security=True" -Path "C:\database.bak"
+        Start-RestoreSqlDatabase -DatabaseName "DbName" -ConnectionString "data source=localhost;integrated security=True" -Path "C:\database.bak"
     #> 
 
     [CmdletBinding()]
@@ -67,7 +67,7 @@ function Restore-SqlDatabase {
             $Path = Join-Path -Path $tempDir -ChildPath (Split-Path -Path $Path -Leaf)
         }
 
-        $sqlScript = Join-Path -Path $PSScriptRoot -ChildPath "Restore-SqlDatabase.sql"
+        $sqlScript = Join-Path -Path $PSScriptRoot -ChildPath "Start-RestoreSqlDatabase.sql"
         $parameters =  @{ "DatabaseName" = $DatabaseName }
         $parameters += @{ "Path" = $Path }
         [void](Invoke-Sql -ConnectionString $ConnectionString -InputFile $sqlScript -SqlCmdVariables $parameters -QueryTimeoutInSeconds $QueryTimeoutInSeconds -DatabaseName '')

@@ -4,10 +4,10 @@ function Backup-SqlDatabase {
         Creates SQL database backup.
 
     .DESCRIPTION
-        Uses Invoke-Sql cmdlet to run Backup-SqlDatabase SQL script to backup database.   
+        Uses Invoke-Sql cmdlet to run Start-BackupSqlDatabase SQL script to backup database.   
 
     .EXAMPLE
-        Backup-SqlDatabase -DatabaseName "DbName" -ConnectionString "Data Source=localhost;Integrated Security=True" -BackupPath "C:\db_backups\" -BackupName "DbName{0}.bak"
+        Start-BackupSqlDatabase -DatabaseName "DbName" -ConnectionString "Data Source=localhost;Integrated Security=True" -BackupPath "C:\db_backups\" -BackupName "DbName{0}.bak"
     #>
     [CmdletBinding()]
     [OutputType([void])]
@@ -35,7 +35,7 @@ function Backup-SqlDatabase {
     $BackupName = if ($BackupName.Contains('{0}')) { $BackupName -f $(Get-Date -Format yyyy-MM-dd_HH-mm-ss) } else { $BackupName }
     $BackupFullPath = Join-Path -Path $BackupPath -ChildPath $BackupName
 
-    $sqlScript = Join-Path -Path $PSScriptRoot -ChildPath "Backup-SqlDatabase.sql"
+    $sqlScript = Join-Path -Path $PSScriptRoot -ChildPath "Start-BackupSqlDatabase.sql"
     if (!$DatabaseName) { 
         $csb = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $ConnectionString
         $DatabaseName = $csb.InitialCatalog
