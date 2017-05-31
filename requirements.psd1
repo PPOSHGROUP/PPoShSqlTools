@@ -1,3 +1,3 @@
 @{
-  PPoShTools = '1.0.0'
+  PPoShTools = '1.0.2'
 }
